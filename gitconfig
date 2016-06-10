@@ -1,0 +1,27 @@
+[color]
+  ui = true
+[user]
+  name = John Paul Bamberg
+  email = jpbamberg1993@gmail.com
+[push]
+  default = simple
+[alias]
+  g = status
+  d = diff
+  c = commit
+  co = checkout
+  br = branch
+  gl = log --pretty=oneline
+  logline = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+[core]
+  excludesfile = /Users/bam/.gitignore_global
+[difftool "sourcetree"]
+  cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+  path = 
+[mergetool "sourcetree"]
+  cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+  trustExitCode = true
+[filter "lfs"]
+  clean = git-lfs clean %f
+  smudge = git-lfs smudge %f
+  required = true
