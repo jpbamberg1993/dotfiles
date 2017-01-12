@@ -18,6 +18,14 @@ Plug 'jiangmiao/auto-pairs'
 Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-ragtag'
 Plug 'tpope/vim-repeat'
+Plug 'lambdatoast/elm.vim'
+Plug 'pangloss/vim-javascript'
+Plug 'mxw/vim-jsx'
+Plug 'MarcWeber/vim-addon-mw-utils'
+Plug 'tomtom/tlib_vim'
+Plug 'garbas/vim-snipmate'
+Plug 'alvan/vim-closetag'
+Plug 'junegunn/vim-easy-align'
 
 call plug#end()
 
@@ -36,7 +44,24 @@ set expandtab
 set nowrap
 set backspace=2
 
-" Little hack to fix the split/scroll problem 
+" Press F6 to toggle color column
+nnoremap <silent><F6> :call <SID>ToggleColorColumn()<cr>
+set colorcolumn=80
+set tw=79       " width of document (used by gd)
+set nowrap      " don't automatically wrap on load
+set fo-=t       " don't automatically wrap text when typing
+let s:color_column_old = 0
+function! s:ToggleColorColumn()
+    if s:color_column_old == 0
+        let s:color_column_old = &colorcolumn
+        windo let &colorcolumn = 0
+    else
+        windo let &colorcolumn=s:color_column_old
+        let s:color_column_old = 0
+    endif
+endfunction
+
+" Little hack to fix the split/scroll problem
 tabnew
 bwipeout
 
@@ -53,18 +78,32 @@ set smartcase
 " Sequence timeout
 set timeout timeoutlen=3000 ttimeoutlen=100
 
-" Style Guide
-highlight OverLength ctermbg=gray ctermfg=white guibg=#d3d3d3
-match OverLength /\%>80v.\+/
-
 " Assign Symbol
 set list lcs=trail:·,tab:»·
+
+" Copy and Paste
+set clipboard=unnamed
 
 " Remove comments in dir
 let g:netrw_banner=0
 
 " Leader mappings
 let mapleader=","
+
+" Allow JSX in normal JS files
+let g:jsx_ext_required = 0 
+
+" Syntastic to use ESLint
+let g:syntastic_javascript_checkers = ['eslint']
+
+let g:syntastic_javascript_checkers = ['jsxhint']
+let g:syntastic_javascript_jsxhint_exec = 'jsx-jshint-wrapper'
+
+" Start interactive EasyAlign in visual mode (e.g. vipga)
+xmap ga <Plug>(EasyAlign)
+
+" Start interactive EasyAlign for a motion/text object (e.g. gaip)
+nmap ga <Plug>(EasyAlign)
 
 " Reload vim config
 nnoremap <Leader>r :source ~/.vimrc<CR>

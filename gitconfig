@@ -6,8 +6,9 @@
 [push]
   default = simple
 [alias]
-  g = status
+  g = status -s
   d = diff
+  a = add
   c = commit
   co = checkout
   br = branch
@@ -15,6 +16,7 @@
   logline = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
 [core]
   excludesfile = /Users/bam/.gitignore_global
+	autocrlf = false
 [difftool "sourcetree"]
   cmd = opendiff \"$LOCAL\" \"$REMOTE\"
   path = 
